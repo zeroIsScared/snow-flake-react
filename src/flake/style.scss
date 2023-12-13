@@ -3,8 +3,9 @@
     border-radius: 50%;
 
     --size: 10px;
-    --color: rgb(0,255,255);
-
+    --color: rgb(, 255, 255);
+    top: var(--top);
+        left: var(--left);
     width: var(--size);
     height: var(--size);
     background-image: radial-gradient(var(--color), transparent 60%),
