@@ -6,7 +6,7 @@ import { randColor, randInt } from "../../helpers/generators";
 const Snow = ({ quantity }) => {
   const genereateFlakes = (quantity) => {
     let flakes = [];
-    let key = 0;
+
     while (flakes.length < quantity) {
       flakes.push(
         <Flake
