@@ -4,36 +4,47 @@ import { Flake } from "../flake/component";
 import { randColor, randInt } from "../../helpers/generators";
 
 const Snow = ({ quantity }) => {
-  const genereateFlakes = (quantity) => {
-    let flakes = [];
-
-    while (flakes.length < quantity) {
-      flakes.push(
-        <Flake
-          key={flakes.length}
-          size={10}
-          color={randColor()}
-          top={0}
-          left={randInt(0, 100)}
-        />
-      );
-    }
-    return flakes;
-  };
-
-  let [flakes, setFlakes] = useState(genereateFlakes(quantity));
+  let [flakes, setFlakes] = useState([
+    <Flake
+      key={quantity + 1}
+      size={10}
+      color={randColor({ redish: 0.1, greenish: 0.1, blueish: 0.85 })}
+      top={0}
+      left={randInt(0, 100)}
+      speed={randInt(0, 1)}
+    />,
+  ]);
 
   const TOP_LIMIT = 80;
 
   useEffect(() => {
     setTimeout(() => {
       setFlakes(
-        flakes
+        [
+          ...flakes,
+          ...new Array(quantity - flakes.length)
+            .fill()
+            .map(() => (
+              <Flake
+                key={TOP_LIMIT + 1}
+                size={randInt(1, 30)}
+                color={randColor({ redish: 0.6, greenish: 0.1, blueish: 0.5 })}
+                top={randInt(0, 15)}
+                left={randInt(0, 100)}
+                speed={randInt(0, 2)}
+              />
+            )),
+        ]
           .filter((flake) => flake.props.top < TOP_LIMIT)
-          .map((flake) => <Flake {...flake.props} top={flake.props.top + 5} />)
+          .map((flake) => (
+            <Flake
+              {...flake.props}
+              top={flake.props.top + flake.props.size * 0.04}
+            />
+          ))
       );
-    }, 500);
-  }, [setFlakes, flakes]);
+    }, 35);
+  }, [flakes]);
 
   return flakes;
 };
