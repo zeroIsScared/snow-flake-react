@@ -8,7 +8,7 @@ const Snow = ({ quantity }) => {
     <Flake
       key={quantity + 1}
       size={10}
-      color={randColor({ redish: 0.1, greenish: 0.1, blueish: 0.85 })}
+      color={randColor({ redish: 0.2, greenish: 0.1, blueish: 0.78 })}
       top={0}
       left={randInt(0, 100)}
       speed={randInt(0, 1)}
@@ -22,18 +22,20 @@ const Snow = ({ quantity }) => {
       setFlakes(
         [
           ...flakes,
-          ...new Array(quantity - flakes.length)
-            .fill()
-            .map(() => (
-              <Flake
-                key={TOP_LIMIT + 1}
-                size={randInt(1, 30)}
-                color={randColor({ redish: 0.6, greenish: 0.1, blueish: 0.5 })}
-                top={randInt(0, 15)}
-                left={randInt(0, 100)}
-                speed={randInt(0, 2)}
-              />
-            )),
+          ...new Array(quantity - flakes.length).fill().map(() => (
+            <Flake
+              key={TOP_LIMIT + 1}
+              size={randInt(1, 30)}
+              color={randColor({
+                redish: 0.2,
+                greenish: 0.3,
+                blueish: 0.78,
+              })}
+              top={randInt(0, 15)}
+              left={randInt(0, 100)}
+              speed={randInt(0, 2)}
+            />
+          )),
         ]
           .filter((flake) => flake.props.top < TOP_LIMIT)
           .map((flake) => (
